@@ -1,9 +1,20 @@
 const path = require('path');
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const JavaScriptObfuscator = require('webpack-obfuscator');
 
-const defaultConfig = {
-  mode: 'production',
+const nodeEnv = process.env.NODE_ENV || 'development';
+const isProd = nodeEnv === 'production';
+
+const config = {
+  mode: isProd ? 'production' : 'none',
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(nodeEnv),
+      },
+    }),
+    new CleanWebpackPlugin(['build/']),
     new JavaScriptObfuscator(),
   ].filter(i => i),
   module: {
@@ -18,12 +29,21 @@ const defaultConfig = {
   resolve: {
     extensions: ['*', '.js', '.jsx'],
   },
-
 };
 
+if (!isProd) {
+  config.devServer = {
+    contentBase: [path.join(__dirname, 'public'), path.join(__dirname, 'build')],
+    open: true,
+  };
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+  );
+}
+
 module.exports = [{
-  ...defaultConfig,
-  entry: './src/outputs/react-widget.jsx',
+  ...config,
+  entry: './src/react-widget.jsx',
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',

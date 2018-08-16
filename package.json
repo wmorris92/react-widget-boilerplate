@@ -4,8 +4,8 @@
   "description": "Widget boileplate",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf build/ && NODE_ENV=production webpack-cli --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production webpack-cli --mode production",
+    "dev": "webpack-dev-server"
   },
   "author": "William Morris",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -20,6 +21,7 @@
     "eslint-plugin-react": "^7.11.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
     "webpack-obfuscator": "^0.18.0"
   },
   "dependencies": {

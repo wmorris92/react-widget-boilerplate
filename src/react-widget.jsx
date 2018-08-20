@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Widget from './components/widget';
 
 export default class ReactWidget {
-  static createWidget(opts = {}) {
+  static create(opts = {}) {
     // Customisable options
     const { colour = 'red' } = opts;
     const component = <Widget colour={colour} />;
@@ -32,7 +32,7 @@ export default class ReactWidget {
     }
   }
 
-  static destroyWidget() {
+  static destroy() {
     if (!ReactWidget.el) {
       throw new Error('ReactWidget is not created, create first');
     }
